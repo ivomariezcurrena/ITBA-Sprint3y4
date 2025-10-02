@@ -1,0 +1,20 @@
+/* layout para que el footer quede siempre abajo */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 0; /* solo padding arriba/abajo */
+  width: 100%;
+}

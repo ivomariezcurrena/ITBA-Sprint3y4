@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import ProductList from './components/ProductList';
+import ProductList from './productos/ProductList';
 
 function App() {
   const [productos, setProductos] = useState([])
@@ -29,7 +29,6 @@ function App() {
     <>
       <Navbar />
       <main>
-        <h1>Lista de productos</h1>
         <ProductList productos={productos} loading={loading} error={error} />
       </main>
       <Footer />

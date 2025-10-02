@@ -1,26 +1,28 @@
-
-
 /* NavBar */
 nav {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #F5E6D3;
-  max-width: 100%;
+  width: 100%;            /* <- ocupar todo el ancho */
   margin: 0 auto;
 }
 
+/* evitar comportamiento inline de la imagen */
 nav a img {
+  display: block;
   height: 4em;
   width: auto;
 }
 
+/* mantener ul centrado en mobile */
 nav ul {
   display: flex;
   flex-direction: column;
   list-style: none;
   gap: 0.5em;
   align-items: center;
+  margin: 0;
 }
 
 nav li a {
@@ -39,12 +41,14 @@ main{
     nav {
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;   /* asegurar alineación vertical */
+        padding: 0.5rem 1rem;
     }
 
     nav ul {
         flex-direction: row;
         gap: 2em;
-        margin-right: 2em;
+        margin-right: 0; /* que no empuje por default */
     }
 }
 

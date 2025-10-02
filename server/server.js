@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const chalk = require("chalk");
+const path = require("path");
 const productosRouter = require("./routes/products.routes");
 
 const app = express();
@@ -17,6 +18,9 @@ app.use((req, res, next) => {
 
 app.use(cors());
 app.use(express.json());
+
+// servir imagenes
+app.use('/img', express.static(path.join(__dirname, 'img')));
 
 app.use("/api/productos", productosRouter);
 
