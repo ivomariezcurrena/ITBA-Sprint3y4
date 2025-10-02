@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ProductList from './components/ProductList';
 
 function App() {
   const [productos, setProductos] = useState([])
@@ -29,16 +30,7 @@ function App() {
       <Navbar />
       <main>
         <h1>Lista de productos</h1>
-        {loading && <p>Cargando productos...</p>}
-        {error && <p style={{color: "red"}}>Error: {error}</p>}
-
-        {!loading && !error && (
-          <ul>
-            {productos.map((p) => (
-              <li key={p.id}>{p.nombre} - ${p.precio}</li>
-            ))}
-          </ul>
-        )}
+        <ProductList productos={productos} loading={loading} error={error} />
       </main>
       <Footer />
     </>
