@@ -8,7 +8,7 @@ function Navbar() {
         <img src={logo} alt="logo" />
 
       </a>
-
+      <h2>Hermanos Jota</h2>
       <ul>
         <li><a href="/catalogo">PRODUCTOS</a></li>
         <li><a href="/contacto">CONTACTO</a></li>
