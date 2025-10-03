@@ -1,6 +1,6 @@
 import './Card.css'
 
-export default function Card({ producto = {} }) {
+export default function Card({ producto = {}, verDetalle }) {
   const API_BASE = 'http://localhost:3000'
   const imagenPath = producto.imagen
     ? producto.imagen.match(/^https?:\/\//i)
@@ -17,7 +17,7 @@ export default function Card({ producto = {} }) {
       <div className="card-body">
         <h3 className="title u-uppercase">{producto.nombre}</h3>
         {producto.descripcion && <p className="descripcion">{producto.descripcion}</p>}
-        <button className="boton">Ver detalle</button>
+        <button onClick={verDetalle} className="boton">Ver detalle</button>
       </div>
     </li>
   )

@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import ProductList from './productos/ProductList';
+import ProductList from './productos/ProductList'
+import DetallePage from './productos/detalle/Detalle'
 
 function App() {
   const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null)
 
   useEffect(() => {
     fetch("http://localhost:3000/api/productos") 
@@ -25,11 +27,23 @@ function App() {
       })
   }, [])
 
+  const verDetalle = (producto) => setProductoSeleccionado(producto)
+  const volver = () => setProductoSeleccionado(null)
+
   return (
     <>
       <Navbar />
       <main>
-        <ProductList productos={productos} loading={loading} error={error} />
+        {productoSeleccionado ? (
+          <DetallePage producto={productoSeleccionado} volver={volver} />
+        ) : (
+          <ProductList
+            productos={productos}
+            loading={loading}
+            error={error}
+            verDetalle={verDetalle}
+          />
+        )}
       </main>
       <Footer />
     </>
