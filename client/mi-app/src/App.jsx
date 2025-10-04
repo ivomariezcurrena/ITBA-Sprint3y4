@@ -4,6 +4,8 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ProductList from './productos/ProductList'
 import DetallePage from './productos/detalle/Detalle'
+import ContactForm from './ContactForm/ContactForm'
+
 
 function App() {
   const [productos, setProductos] = useState([])
@@ -45,6 +47,7 @@ function App() {
           />
         )}
       </main>
+      <ContactForm />
       <Footer />
     </>
   )
