@@ -3,8 +3,11 @@
 Proyecto: Sitio de catálogo de productos "Hermanos Jota"
 
 Integrantes:
-- Ivoma (desarrollador principal)
-- [Agregar aquí los demás integrantes]
+- Ivo Mariezcurrena
+- Leonel Martínez
+- Franco Liutkevier
+- Agustina Lezica
+- Mayra Limachi
 
 ---
 
@@ -85,19 +88,31 @@ curl -i http://localhost:3000/api/productos
 ---
 
 ## Arquitectura y decisiones principales
-- Backend: Express simple que:
-  - expone ruta `/api/productos` (router en `routes/products.routes.js`)
-  - sirve imágenes estáticas en `/img` (middleware `express.static`)
-  - habilita CORS (`cors()`)
-- Cliente:
-  - App React creada con Vite.
-  - Navegación simple por estado; `App.jsx` controla vistas: lista, detalle y contacto.
-  - ProductList usa `useMemo` para memorizar el filtrado por búsqueda y evitar recálculos innecesarios.
-  - Estilos organizados por componente (Card.css, detalle.css, Navbar.css, Footer.css).
-- UX y diseño:
-  - Navbar transparente con `backdrop-filter` para efecto glass.
-  - Tarjetas de producto con sombra, hover y centro alineado.
-  - Página de detalle que reutiliza imágenes servidas desde el backend.
-  - Footer responsivo.
 
+- Backend (Node.js + Express)
+  - Rutas en `routes/` (ej. `GET /api/productos`, `GET /api/productos/:id`).
+  - Datos estáticos en `backend/data/products.json`.
+  - Imágenes servidas desde `/img` con `express.static`.
+  - CORS habilitado con `cors()` para desarrollo.
+  - Logging básico y manejador de errores centralizado en `server.js`.
+  - Scripts: `npm run dev` (nodemon) y `npm start` (node).
+
+- Cliente (React + Vite)
+  - Estructura por componentes: `ProductList`, `Card`, `Detalle`, `ContactForm`, `Navbar`, `Footer`.
+  - Navegación sin router: `App.jsx` controla vistas por estado ('producto' | 'detalle' | 'contacto').
+  - Peticiones a backend con `fetch("http://localhost:3000/api/productos")`.
+  - Construcción de URL de imágenes en componentes:
+    - Si `producto.imagen` es relativo, se usa `http://localhost:3000/<ruta>` (ej. `img/...png`).
+  - Gestión de UI/estado relevante:
+    - `ProductList` usa `useMemo` para memorizar el filtrado por búsqueda (mejora rendimiento).
+    - La vista detalle recibe `producto` por prop y permite `agregarAlCarrito`.
+    - Carrito: contador simple en `App.jsx` (estado en memoria).
+  - ContactForm:
+    - Componente `ContactForm/ContactForm.jsx` con validación básica y feedback visual; por ahora envía a consola y muestra mensaje de éxito.
+  - Estilos: CSS por componente (Card.css, detalle.css, Navbar.css, Footer.css). Navbar con `backdrop-filter` para efecto glass.
+
+- UX, accesibilidad y diseño
+  - Tarjetas con sombra, hover y diseño centrado.
+  - Página de detalle con imagen grande y detalles en grid.
+  - Footer responsivo y menú que se adapta en móvil.
 ---
