@@ -1,7 +1,7 @@
 import './detalle.css'
 
 
-export default function DetallePage({producto, volver}){
+export default function DetallePage({producto, volver, agregarAlCarrito}){
   const API_BASE = 'http://localhost:3000'
   const imagenPath = producto.imagen
     ? producto.imagen.match(/^https?:\/\//i)
@@ -43,7 +43,7 @@ export default function DetallePage({producto, volver}){
                         <p>5 estantes ajustables</p>
                     </div>
                     </div>
-                    <button className='btnCarrito'>Añadir al carrito</button>
+                    <button className='btnCarrito' onClick={() => agregarAlCarrito(producto)}>Añadir al carrito</button>
             </div>
             
         </div>

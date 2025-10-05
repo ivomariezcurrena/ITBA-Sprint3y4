@@ -1,7 +1,7 @@
 import './Navbar.css'
 import logo from '../assets/logo.svg'
 
-function Navbar() {
+function Navbar({ cantidadCarrito }) {
   return (
     <nav>
       <a href="index.html">
@@ -14,7 +14,8 @@ function Navbar() {
         <li><a href="/contacto">CONTACTO</a></li>
         <li>
           <a href="#carrito">
-            <i className="fa-solid fa-cart-shopping"></i> (<span id="carrito-count">0</span>)
+            <i className="fa-solid fa-cart-shopping"></i>
+            {cantidadCarrito > 0 && <span>{cantidadCarrito}</span>}
           </a>
         </li>
       </ul>

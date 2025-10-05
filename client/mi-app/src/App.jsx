@@ -12,6 +12,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [productoSeleccionado, setProductoSeleccionado] = useState(null)
+  const [cantidadCarrito, setCantidadCarrito] = useState(0);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/productos") 
@@ -31,13 +32,18 @@ function App() {
 
   const verDetalle = (producto) => setProductoSeleccionado(producto)
   const volver = () => setProductoSeleccionado(null)
+  const agregarAlCarrito = (producto) => {
+    if (producto)
+      setCantidadCarrito(cantidadCarrito + 1);
+  }
+    
 
   return (
     <>
-      <Navbar />
+      <Navbar cantidadCarrito={cantidadCarrito} />
       <main>
         {productoSeleccionado ? (
-          <DetallePage producto={productoSeleccionado} volver={volver} />
+          <DetallePage producto={productoSeleccionado} volver={volver} agregarAlCarrito={agregarAlCarrito}/>
         ) : (
           <ProductList
             productos={productos}
