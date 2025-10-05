@@ -6,13 +6,13 @@ import ProductList from './productos/ProductList'
 import DetallePage from './productos/detalle/Detalle'
 import ContactForm from './ContactForm/ContactForm'
 
-
 function App() {
   const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [productoSeleccionado, setProductoSeleccionado] = useState(null)
   const [cantidadCarrito, setCantidadCarrito] = useState(0);
+  const [vista, setVista] = useState('producto')
 
   useEffect(() => {
     fetch("http://localhost:3000/api/productos") 
@@ -30,8 +30,19 @@ function App() {
       })
   }, [])
 
-  const verDetalle = (producto) => setProductoSeleccionado(producto)
-  const volver = () => setProductoSeleccionado(null)
+  const verDetalle = (producto) => {
+    setProductoSeleccionado(producto)
+    setVista('detalle')
+  }
+  const volver = () => {
+    setProductoSeleccionado(null)
+    setVista('producto')
+  }
+  const mostrarContacto = () => {
+    setProductoSeleccionado(null)
+    setVista('contacto')
+  }
+
   const agregarAlCarrito = (producto) => {
     if (producto)
       setCantidadCarrito(cantidadCarrito + 1);
@@ -40,23 +51,24 @@ function App() {
 
   return (
     <>
-      <Navbar cantidadCarrito={cantidadCarrito} />
+      <Navbar cantidadCarrito={cantidadCarrito} onContacto={mostrarContacto} onProducto={volver}/>
       <main>
-        {productoSeleccionado ? (
+        {vista === 'contacto' ? (
+          <ContactForm />
+        ) : (vista === 'detalle' && productoSeleccionado) ? (
           <DetallePage producto={productoSeleccionado} volver={volver} agregarAlCarrito={agregarAlCarrito}/>
-        ) : (
+        ) : vista === 'producto' ? (
           <ProductList
             productos={productos}
             loading={loading}
             error={error}
             verDetalle={verDetalle}
           />
-        )}
+        ) : null}
       </main>
-      <ContactForm />
       <Footer />
     </>
   )
-}
-
-export default App
+ }
+ 
+ export default App
