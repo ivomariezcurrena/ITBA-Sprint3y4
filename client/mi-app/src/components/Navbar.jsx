@@ -1,25 +1,34 @@
 import './Navbar.css'
 import logo from '../assets/logo.svg'
+import { Link } from 'react-router-dom'
 
-function Navbar({ cantidadCarrito, onContacto, onProducto }) {
+function Navbar({ cantidadCarrito }) {
   return (
     <nav>
-      <a href="index.html">
+      <Link to="/">
         <img src={logo} alt="logo" />
-      </a>
+      </Link>
       <h2>Hermanos Jota</h2>
       <ul>
-        <li><a href="#" onClick={(e) => { e.preventDefault(); onProducto && onProducto(); }}>PRODUCTOS</a></li>
-        <li><a href="#" onClick={(e) => { e.preventDefault(); onContacto && onContacto(); }}>CONTACTO</a></li>
         <li>
-          <a href="#carrito">
+          <Link to="/productos">PRODUCTOS</Link>
+        </li>
+        <li>
+          <Link to="/contacto">CONTACTO</Link>
+        </li>
+        <li>
+          <Link to="#carrito">
             <i className="fa-solid fa-cart-shopping"></i>
             {cantidadCarrito > 0 && <span>{cantidadCarrito}</span>}
-          </a>
+          </Link>
+        </li>
+        <li>
+          <Link to="/admin/crear-producto">CREAR PRODUCTO</Link>
         </li>
       </ul>
     </nav>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
+

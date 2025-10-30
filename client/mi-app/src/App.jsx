@@ -1,27 +1,28 @@
 import { useEffect, useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import ProductList from './productos/ProductList'
-import DetallePage from './productos/detalle/Detalle'
-import ContactForm from './ContactForm/ContactForm'
+import Home from './pages/Home'
+import Productos from './pages/Productos'
+import ProductoDetalle from './pages/ProductoDetalle'
+import Contacto from './pages/Contacto'
+import CrearProducto from './pages/CrearProducto'
 
 function App() {
   const [productos, setProductos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [productoSeleccionado, setProductoSeleccionado] = useState(null)
-  const [cantidadCarrito, setCantidadCarrito] = useState(0);
-  const [vista, setVista] = useState('producto')
+  const [cantidadCarrito, setCantidadCarrito] = useState(0)
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/productos") 
+    fetch('http://localhost:3000/api/productos')
       .then((res) => {
-        if (!res.ok) throw new Error("Error al obtener productos")
+        if (!res.ok) throw new Error('Error al obtener productos')
         return res.json()
       })
       .then((data) => {
-        setProductos(data) 
+        setProductos(data)
         setLoading(false)
       })
       .catch((err) => {
@@ -30,45 +31,32 @@ function App() {
       })
   }, [])
 
-  const verDetalle = (producto) => {
-    setProductoSeleccionado(producto)
-    setVista('detalle')
-  }
-  const volver = () => {
-    setProductoSeleccionado(null)
-    setVista('producto')
-  }
-  const mostrarContacto = () => {
-    setProductoSeleccionado(null)
-    setVista('contacto')
-  }
-
   const agregarAlCarrito = (producto) => {
-    if (producto)
-      setCantidadCarrito(cantidadCarrito + 1);
+    if (producto) setCantidadCarrito(cantidadCarrito + 1)
   }
-    
 
   return (
-    <>
-      <Navbar cantidadCarrito={cantidadCarrito} onContacto={mostrarContacto} onProducto={volver}/>
+    <BrowserRouter>
+      <Navbar cantidadCarrito={cantidadCarrito} />
+
       <main>
-        {vista === 'contacto' ? (
-          <ContactForm />
-        ) : (vista === 'detalle' && productoSeleccionado) ? (
-          <DetallePage producto={productoSeleccionado} volver={volver} agregarAlCarrito={agregarAlCarrito}/>
-        ) : vista === 'producto' ? (
-          <ProductList
-            productos={productos}
-            loading={loading}
-            error={error}
-            verDetalle={verDetalle}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/productos" element={<Productos />} />
+          <Route
+            path="/productos/:id"
+            element={<ProductoDetalle agregarAlCarrito={agregarAlCarrito} />}
           />
-        ) : null}
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/admin/crear-producto" element={<CrearProducto />} />
+        </Routes>
       </main>
+
       <Footer />
-    </>
+    </BrowserRouter>
   )
- }
- 
- export default App
+}
+
+export default App
+
+
