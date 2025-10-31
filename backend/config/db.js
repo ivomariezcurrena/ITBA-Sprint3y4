@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 const chalk = require("chalk");
 
-async function connect(mongoUri, options = {}) {
+async function connect(mongoUri) {
   if (!mongoUri) {
     throw new Error("MONGO_URI no definido");
   }
   try {
     mongoose.set("strictQuery", false);
-    const defaultOpts = { useNewUrlParser: true, useUnifiedTopology: true };
-    await mongoose.connect(mongoUri, { ...defaultOpts, ...options });
+    
+    await mongoose.connect(mongoUri);
     console.log(chalk.green("MongoDB conectado"));
   } catch (err) {
     console.error(chalk.red("Error conectando a MongoDB:"), err);
