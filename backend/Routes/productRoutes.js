@@ -1,5 +1,5 @@
-import { Product } from '../Models/Product';
-import express from 'express';
+const Product = require('../Models/Product');
+const express = require('express');
 
 const router = express.Router();
 
@@ -31,7 +31,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        const productCreated = await Product.create(req.body);
+        const newProduct = new Product(req.body);
+        const productCreated = await newProduct.save();
 
         res.status(201).json(productCreated);
     } catch (error) {
@@ -77,4 +78,4 @@ router.delete('/:id', async (req, res, next) => {
     }
 });
 
-export default router;
+module.exports = router;

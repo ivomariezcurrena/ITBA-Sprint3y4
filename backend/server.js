@@ -4,6 +4,7 @@ const chalk = require("chalk");
 const path = require("path");
 const dotenv = require("dotenv");
 const db = require("./config/db"); // <-- usar el módulo de configuración de BD
+const productRoutes = require("./Routes/productRoutes");
 
 dotenv.config();
 
@@ -30,6 +31,8 @@ app.use('/img', express.static(path.join(__dirname, 'img')));
 app.get("/api/health", (req, res) => {
   res.json({ ok: true, ts: new Date().toISOString() });
 });
+
+app.use('/api/productos/', productRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ error: "Recurso no encontrado" });
