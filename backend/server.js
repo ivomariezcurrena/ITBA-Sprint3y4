@@ -4,7 +4,7 @@ const chalk = require("chalk");
 const path = require("path");
 const dotenv = require("dotenv");
 const db = require("./config/db"); // <-- usar el módulo de configuración de BD
-const productRoutes = require("./Routes/productRoutes");
+const productRoutes = require("./routes/productRoutes");
 
 dotenv.config();
 

@@ -9,8 +9,16 @@
   background: #fff;
   border-radius: 16px;
 }
-
-.btnCarrito{
+.acciones{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 1rem auto;
+}
+.btnCarrito, .btnEliminar{
   display: block;
   width: 200px;
   max-width: 300px;
@@ -32,6 +40,13 @@
 .btnCarrito:hover {
   background-color: var(--color-vara-de-oro);
   box-shadow: 0 8px 32px rgba(212,164,55,0.18);
+}
+.btnEliminar{
+  background-color: #9c1b1b;
+}
+.btnEliminar:hover{
+  background-color: #a32424;
+  box-shadow: 0 8px 32px rgba(230,57,57,0.18);
 }
 .btnVolver{
   background-color: var(--color-siena-tostado );
@@ -136,6 +151,10 @@
     z-index: 1;
     transition: transform .25s ease;
 
+  }
+  .acciones{
+    flex-direction: row;
+    gap: 1rem;
   }
   
   .Detalle .descripcion > p {

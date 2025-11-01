@@ -1,11 +1,13 @@
 import './Card.css'
+import { useNavigate } from "react-router-dom";
 
 export default function Card({ producto = {}, verDetalle }) {
+  const navigate = useNavigate();
   const API_BASE = 'http://localhost:3000'
-  const imagenPath = producto.imagen
-    ? producto.imagen.match(/^https?:\/\//i)
-      ? producto.imagen
-      : `${API_BASE}/${encodeURI(producto.imagen)}`
+  const imagenPath = producto.imagenUrl
+    ? producto.imagenUrl.match(/^https?:\/\//i)
+      ? producto.imagenUrl
+      : `${API_BASE}${producto.imagenUrl.startsWith('/') ? '' : '/'}${producto.imagenUrl}`
     : null
 
   return (
@@ -17,7 +19,7 @@ export default function Card({ producto = {}, verDetalle }) {
       <div className="card-body">
         <h3 className="title u-uppercase">{producto.nombre}</h3>
         {producto.descripcion && <p className="descripcion">{producto.descripcion}</p>}
-        <button onClick={verDetalle} className="boton">Ver detalle</button>
+        <button onClick={()=> navigate(`/productos/${producto._id}`)} className="boton">Ver detalle</button>
       </div>
     </li>
   )

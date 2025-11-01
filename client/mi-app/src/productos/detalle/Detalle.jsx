@@ -1,15 +1,20 @@
+import ModalEliminar from '../components/ModalEliminar';
 import './detalle.css'
-
+import {useState} from 'react'
 
 export default function DetallePage({producto, volver, agregarAlCarrito}){
+    const [showmodal, setShowmodal] = useState(false);
+
   const API_BASE = 'http://localhost:3000'
-  const imagenPath = producto.imagen
-    ? producto.imagen.match(/^https?:\/\//i)
-      ? producto.imagen
-      : `${API_BASE}/${encodeURI(producto.imagen)}`
+  const imagenPath = producto.imagenUrl
+    ? producto.imagenUrl.match(/^https?:\/\//i)
+      ? producto.imagenUrl
+      : `${API_BASE}${producto.imagenUrl.startsWith('/') ? '' : '/'}${producto.imagenUrl}`
     : null
 
-
+    function handlerModal(){
+        setShowmodal(!showmodal);
+    }
     return(
         <>
         <div className="Detalle">
@@ -43,10 +48,21 @@ export default function DetallePage({producto, volver, agregarAlCarrito}){
                         <p>5 estantes ajustables</p>
                     </div>
                     </div>
+                    <div className='acciones'>
                     <button className='btnCarrito' onClick={() => agregarAlCarrito(producto)}>Añadir al carrito</button>
+                    <button className='btnEliminar' onClick={()=> handlerModal()}>Eliminar</button>
+                    </div>
             </div>
             
         </div>
+        {showmodal && (
+            <ModalEliminar
+                abierto={showmodal}
+                onClose={handlerModal}
+                onConfirm={console.log('Eliminando producto...')}
+                producto={producto}
+            />
+        )}
         </>
     )
 }

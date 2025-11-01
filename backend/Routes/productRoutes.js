@@ -1,7 +1,20 @@
 const Product = require('../Models/Product');
 const express = require('express');
+const multer = require('multer');
+const path = require('path');
 
 const router = express.Router();
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, '../img'));
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+const upload = multer({ storage });
 
 router.get('/', async (req, res, next) => {
     try{
@@ -29,15 +42,30 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
-    try {
-        const newProduct = new Product(req.body);
-        const productCreated = await newProduct.save();
-
-        res.status(201).json(productCreated);
-    } catch (error) {
-        next(error);
+// POST con imagen
+router.post('/', upload.single('imagen'), async (req, res, next) => {
+  try {
+    const { nombre, descripcion, precio, stock, imagenUrl: imagenUrlBody } = req.body;
+    let imagenUrl = '';
+    if (req.file) {
+      imagenUrl = `/img/${req.file.filename}`;
+    } else if (imagenUrlBody) {
+      imagenUrl = imagenUrlBody;
     }
+
+    const newProduct = new Product({
+      nombre,
+      descripcion,
+      precio,
+      stock,
+      imagenUrl
+    });
+
+    const productCreated = await newProduct.save();
+    res.status(201).json(productCreated);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.put('/:id', async (req, res, next) => {

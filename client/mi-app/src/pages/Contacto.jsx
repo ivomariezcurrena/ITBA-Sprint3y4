@@ -1,2 +1,9 @@
-const Contacto = () => <h1>Página de Contacto</h1>;
+import ContactForm from "../ContactForm/ContactForm";
+
+const Contacto = () => (
+  <main>
+    <ContactForm />
+  </main>
+);
+
 export default Contacto;
