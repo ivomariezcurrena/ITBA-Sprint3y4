@@ -7,7 +7,7 @@ import Home from './pages/Home'
 import Productos from './pages/Productos'
 import ProductoDetalle from './pages/ProductoDetalle'
 import Contacto from './pages/Contacto'
-import CrearProducto from './pages/CrearProducto'
+import CrearProducto from './pages/Crear-Producto'
 
 function App() {
   const [productos, setProductos] = useState([])
