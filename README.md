@@ -7,14 +7,13 @@ Integrantes:
 - Ivo Mariezcurrena
 - Leonel Martínez
 - Franco Liutkevier
-- Agustina Lezica
 - Mayra Limachi
 
 ---
 
 ## Enlaces a los sitios desplegados
 
-- **Frontend (React):** [https://hermanosjota-frontend.vercel.app](https://hermanosjota-frontend.vercel.app)
+- **Frontend (React):** [https://hermanosjota-gray.vercel.app/](https://hermanosjota-gray.vercel.app/)
 - **Backend (API):** [https://itba.onrender.com/](https://itba.onrender.com/)
 
 > _Reemplaza los enlaces por los reales si tu despliegue es en otra URL._
@@ -155,4 +154,51 @@ curl -i http://localhost:3000/api/productos
   - Tarjetas con sombra, hover y diseño centrado.
   - Página de detalle con imagen grande y detalles en grid.
   - Footer responsivo y menú que se adapta en móvil.
+ 
+---
+
+## Funcionalidad de administración (Admin)
+
+Se agregó una interfaz simple de administración para "Hermanos Jota" que permite crear y eliminar productos desde el frontend.
+
+- Ruta UI: `/admin/crear-producto` (componente `Crear-Producto.jsx`) — formulario para agregar productos y listado con acciones de eliminación.
+- Boton de eliminar en detalle del producto
+- Endpoints del backend usados:
+  - POST /api/productos — crear producto (acepta multipart/form-data con campo `imagen` para subir imagen y campos adicionales en el body)
+  - DELETE /api/productos/:id — eliminar producto por id
+
+Campos disponibles para crear un producto (ahora incluidos en el modelo):
+- nombre (string, obligatorio)
+- descripcion (string)
+- precio (number, obligatorio)
+- stock (number)
+- imagen (archivo, opcional) — se guarda en `/img` y `imagenUrl` contiene la ruta relativa (ej: `/img/12345-foto.jpg`)
+- medidas (string)
+- materiales (string)
+- acabado (string)
+- caracteristicas (string)
+
+Ejemplo de uso con curl (subir imagen con FormData):
+
+```bash
+curl -X POST "https://itba.onrender.com/api/productos" \
+  -F "nombre=Mi Producto" \
+  -F "descripcion=Descripción corta" \
+  -F "precio=1999.99" \
+  -F "stock=10" \
+  -F "medidas=100 x 35 x 200 cm" \
+  -F "materiales=Roble" \
+  -F "imagen=@./foto.jpg"
+```
+
+Ejemplo para eliminar un producto:
+
+```bash
+curl -X DELETE "https://itba.onrender.com/api/productos/<PRODUCT_ID>"
+```
+
+Notas de seguridad y despliegue:
+- Actualmente no hay autenticación en estos endpoints; la interfaz admin está disponible públicamente en el frontend. Si vas a poner la app en producción, agrega protección (login, tokens o IP whitelist) antes de exponer las operaciones de escritura y borrado.
+- Asegúrate de que `VITE_API_URL` en tu frontend (Vercel) apunte a la URL pública del backend en Render (`https://itba.onrender.com`).
+
 ---
