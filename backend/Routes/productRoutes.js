@@ -45,7 +45,7 @@ router.get('/:id', async (req, res, next) => {
 // POST con imagen
 router.post('/', upload.single('imagen'), async (req, res, next) => {
   try {
-    const { nombre, descripcion, precio, stock, imagenUrl: imagenUrlBody } = req.body;
+    const { nombre, descripcion, precio, stock, imagenUrl: imagenUrlBody, medidas, materiales, acabado, caracteristicas } = req.body;
     let imagenUrl = '';
     if (req.file) {
       imagenUrl = `/img/${req.file.filename}`;
@@ -58,7 +58,11 @@ router.post('/', upload.single('imagen'), async (req, res, next) => {
       descripcion,
       precio,
       stock,
-      imagenUrl
+      imagenUrl,
+      medidas,
+      materiales,
+      acabado,
+      caracteristicas
     });
 
     const productCreated = await newProduct.save();

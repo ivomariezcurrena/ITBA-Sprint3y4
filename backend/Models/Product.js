@@ -17,6 +17,18 @@ const productSchema = new mongoose.Schema({
     },
     imagenUrl: {
         type: String
+    },
+    medidas: {
+        type: String
+    },
+    materiales: {
+        type: String
+    },
+    acabado: {
+        type: String
+    },
+    caracteristicas: {
+        type: String
     }
 });
 

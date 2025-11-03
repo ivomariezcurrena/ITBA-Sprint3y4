@@ -30,22 +30,22 @@ export default function DetallePage({producto, volver, agregarAlCarrito}){
             <div className="descripcion">
                 <h1 className="titulo">{producto.nombre}</h1>
                 <p>{producto.descripcion}</p>
-                <div class="detalles">
+                <div className="detalles">
                     <div>
                         <h3>Medidas</h3>
-                        <p>100 × 35 × 200 cm</p>
+                        <p>{producto.medidas || 'No especificado'}</p>
                     </div>
                     <div>
                         <h3>Materiales</h3>
-                        <p>Estructura de acero, estantes de roble</p>
+                        <p>{producto.materiales || 'No especificado'}</p>
                     </div>
                     <div>
                         <h3>Acabado</h3>
-                        <p>Laca mate ecológica</p>
+                        <p>{producto.acabado || 'No especificado'}</p>
                     </div>
                     <div>
                         <h3>Características</h3>
-                        <p>5 estantes ajustables</p>
+                        <p>{producto.caracteristicas || 'No especificado'}</p>
                     </div>
                     </div>
                     <div className='acciones'>

@@ -11,7 +11,11 @@ const CrearProducto = () => {
     descripcion: '',
     precio: '',
     stock: '',
-    imagen: null 
+    imagen: null,
+    medidas: '',
+    materiales: '',
+    acabado: '',
+    caracteristicas: ''
   });
   
   // Estado para preview de imagen
@@ -130,13 +134,17 @@ const CrearProducto = () => {
       formDataToSend.append('descripcion', formData.descripcion.trim());
       formDataToSend.append('precio', parseFloat(formData.precio));
       formDataToSend.append('stock', formData.stock ? parseInt(formData.stock) : 0);
+      formDataToSend.append('medidas', formData.medidas.trim());
+      formDataToSend.append('materiales', formData.materiales.trim());
+      formDataToSend.append('acabado', formData.acabado.trim());
+      formDataToSend.append('caracteristicas', formData.caracteristicas.trim());
       
       // Agregar imagen si existe
       if (formData.imagen) {
         formDataToSend.append('imagen', formData.imagen);
       }
       
-      const response = await fetch('/api/productos', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/productos`, {
         method: 'POST',
         body: formDataToSend 
       });
@@ -154,7 +162,11 @@ const CrearProducto = () => {
         descripcion: '',
         precio: '',
         stock: '',
-        imagen: null
+        imagen: null,
+        medidas: '',
+        materiales: '',
+        acabado: '',
+        caracteristicas: ''
       });
       setImagePreview(null);
       
@@ -277,6 +289,54 @@ const CrearProducto = () => {
                   min="0"
                 />
               </div>
+            </div>
+            
+            <div className="campo">
+              <label htmlFor="medidas">Medidas</label>
+              <input
+                type="text"
+                id="medidas"
+                name="medidas"
+                value={formData.medidas}
+                onChange={handleChange}
+                placeholder="Ej: 100 × 35 × 200 cm"
+              />
+            </div>
+            
+            <div className="campo">
+              <label htmlFor="materiales">Materiales</label>
+              <input
+                type="text"
+                id="materiales"
+                name="materiales"
+                value={formData.materiales}
+                onChange={handleChange}
+                placeholder="Ej: Estructura de acero, estantes de roble"
+              />
+            </div>
+            
+            <div className="campo">
+              <label htmlFor="acabado">Acabado</label>
+              <input
+                type="text"
+                id="acabado"
+                name="acabado"
+                value={formData.acabado}
+                onChange={handleChange}
+                placeholder="Ej: Laca mate ecológica"
+              />
+            </div>
+            
+            <div className="campo">
+              <label htmlFor="caracteristicas">Características</label>
+              <textarea
+                id="caracteristicas"
+                name="caracteristicas"
+                value={formData.caracteristicas}
+                onChange={handleChange}
+                placeholder="Ej: 5 estantes ajustables"
+                rows="2"
+              />
             </div>
             
             <div className="campo">
