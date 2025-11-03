@@ -16,7 +16,7 @@ function App() {
   const [cantidadCarrito, setCantidadCarrito] = useState(0)
 
   useEffect(() => {
-    fetch(`api/productos`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/productos`)
       .then((res) => {
         if (!res.ok) throw new Error('Error al obtener productos')
         return res.json()

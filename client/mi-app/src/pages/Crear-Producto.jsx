@@ -35,7 +35,7 @@ const CrearProducto = () => {
   const fetchProductos = async () => {
     try {
       setLoadingProductos(true);
-      const response = await fetch('/api/productos');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/productos`);
       if (!response.ok) throw new Error('Error al cargar productos');
       const data = await response.json();
       setProductos(data);

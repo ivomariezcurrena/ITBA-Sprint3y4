@@ -10,7 +10,7 @@ const ProductoDetalle = ({ agregarAlCarrito }) => {
 
   useEffect(() => {
     console.log("Cargando detalle del producto con ID:", id);
-    fetch(`/api/productos/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/productos/${id}`)
       .then(res => {
         if (!res.ok) throw new Error("No se pudo cargar el producto");
         return res.json();
