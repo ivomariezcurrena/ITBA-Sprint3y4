@@ -15,7 +15,7 @@ Integrantes:
 ## Enlaces a los sitios desplegados
 
 - **Frontend (React):** [https://hermanosjota-frontend.vercel.app](https://hermanosjota-frontend.vercel.app)
-- **Backend (API):** [https://hermanosjota-backend.onrender.com](https://hermanosjota-backend.onrender.com)
+- **Backend (API):** [https://itba.onrender.com/](https://itba.onrender.com/)
 
 > _Reemplaza los enlaces por los reales si tu despliegue es en otra URL._
 

@@ -16,7 +16,7 @@ function App() {
   const [cantidadCarrito, setCantidadCarrito] = useState(0)
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/productos')
+    fetch(`api/productos`)
       .then((res) => {
         if (!res.ok) throw new Error('Error al obtener productos')
         return res.json()

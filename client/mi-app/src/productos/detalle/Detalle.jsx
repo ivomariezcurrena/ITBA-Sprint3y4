@@ -1,15 +1,15 @@
 import ModalEliminar from '../components/ModalEliminar';
 import './detalle.css'
 import {useState} from 'react'
-
 export default function DetallePage({producto, volver, agregarAlCarrito}){
     const [showmodal, setShowmodal] = useState(false);
 
-  const API_BASE = 'http://localhost:3000'
+  const VITE_API_URL = import.meta.env.VITE_API_URL;
+  
   const imagenPath = producto.imagenUrl
     ? producto.imagenUrl.match(/^https?:\/\//i)
       ? producto.imagenUrl
-      : `${API_BASE}${producto.imagenUrl.startsWith('/') ? '' : '/'}${producto.imagenUrl}`
+      : `${VITE_API_URL}${producto.imagenUrl.startsWith('/') ? '' : '/'}${producto.imagenUrl}`
     : null
 
     function handlerModal(){
