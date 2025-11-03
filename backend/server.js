@@ -3,7 +3,7 @@ const cors = require("cors");
 const chalk = require("chalk");
 const path = require("path");
 const dotenv = require("dotenv");
-const db = require("./config/db"); // <-- usar el módulo de configuración de BD
+const db = require("./config/db");
 const productRoutes = require("./routes/productRoutes");
 
 dotenv.config();

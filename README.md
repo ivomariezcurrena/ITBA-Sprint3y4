@@ -1,3 +1,4 @@
+
 # ITBA-Sprint3y4
 
 Proyecto: Sitio de catálogo de productos "Hermanos Jota"
@@ -11,9 +12,46 @@ Integrantes:
 
 ---
 
+## Enlaces a los sitios desplegados
+
+- **Frontend (React):** [https://hermanosjota-frontend.vercel.app](https://hermanosjota-frontend.vercel.app)
+- **Backend (API):** [https://hermanosjota-backend.onrender.com](https://hermanosjota-backend.onrender.com)
+
+> _Reemplaza los enlaces por los reales si tu despliegue es en otra URL._
+
+---
+
 ## Requisitos
 - Node.js >= 16 (recomendado)
 - npm >= 8
+
+---
+
+## Configuración de variables de entorno
+
+### Backend (`backend/.env`)
+
+Crea un archivo `.env` en la carpeta `backend/` con el siguiente contenido de ejemplo:
+
+```env
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/hermanosjota
+# Otras variables necesarias para tu entorno
+```
+
+- `PORT`: Puerto donde corre el backend (por defecto 3000)
+- `MONGO_URI`: Cadena de conexión a MongoDB local o remota
+
+### Frontend (`client/mi-app/.env.local`)
+
+Crea un archivo `.env.local` en `client/mi-app/` con el siguiente contenido de ejemplo:
+
+```env
+VITE_API_URL=http://localhost:3000
+# Otras variables si tuvieras
+```
+
+- `VITE_API_URL`: URL base de la API backend (ajusta según despliegue)
 
 ---
 
@@ -30,12 +68,13 @@ Integrantes:
 
 ---
 
-## Instalación y ejecución
+## Instalación y ejecución local
 
-1) Backend
+### 1) Backend
+
 ```bash
-# filepath: /home/ivoma/ITBA-Sprint3y4
 cd backend
+cp .env.example .env # o crea .env según el ejemplo arriba
 npm install
 # iniciar en desarrollo (usa nodemon si está configurado) o con node
 npm run dev   # si existe script dev
@@ -47,10 +86,11 @@ node server.js
   - GET /api/productos
   - GET /img/<nombre-de-imagen>
 
-2) Cliente (React / Vite)
+### 2) Cliente (React / Vite)
+
 ```bash
-# filepath: /home/ivoma/ITBA-Sprint3y4
 cd client/mi-app
+cp .env.local.example .env.local # o crea .env.local según el ejemplo arriba
 npm install
 npm run dev
 ```
@@ -99,8 +139,8 @@ curl -i http://localhost:3000/api/productos
 
 - Cliente (React + Vite)
   - Estructura por componentes: `ProductList`, `Card`, `Detalle`, `ContactForm`, `Navbar`, `Footer`.
-  - Navegación sin router: `App.jsx` controla vistas por estado ('producto' | 'detalle' | 'contacto').
-  - Peticiones a backend con `fetch("http://localhost:3000/api/productos")`.
+  - Navegación con React Router (`App.jsx`).
+  - Peticiones a backend con `fetch` usando `VITE_API_URL`.
   - Construcción de URL de imágenes en componentes:
     - Si `producto.imagen` es relativo, se usa `http://localhost:3000/<ruta>` (ej. `img/...png`).
   - Gestión de UI/estado relevante:
@@ -108,7 +148,7 @@ curl -i http://localhost:3000/api/productos
     - La vista detalle recibe `producto` por prop y permite `agregarAlCarrito`.
     - Carrito: contador simple en `App.jsx` (estado en memoria).
   - ContactForm:
-    - Componente `ContactForm/ContactForm.jsx` con validación básica y feedback visual; por ahora envía a consola y muestra mensaje de éxito.
+    - Componente `ContactForm/ContactForm.jsx` con validación y feedback visual.
   - Estilos: CSS por componente (Card.css, detalle.css, Navbar.css, Footer.css). Navbar con `backdrop-filter` para efecto glass.
 
 - UX, accesibilidad y diseño
