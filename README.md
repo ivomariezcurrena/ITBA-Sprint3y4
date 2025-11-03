@@ -16,8 +16,6 @@ Integrantes:
 - **Frontend (React):** [https://hermanosjota-gray.vercel.app/](https://hermanosjota-gray.vercel.app/)
 - **Backend (API):** [https://itba.onrender.com/](https://itba.onrender.com/)
 
-> _Reemplaza los enlaces por los reales si tu despliegue es en otra URL._
-
 ---
 
 ## Requisitos
