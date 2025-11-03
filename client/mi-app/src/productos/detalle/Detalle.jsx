@@ -1,8 +1,11 @@
 import ModalEliminar from '../components/ModalEliminar';
 import './detalle.css'
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
+
 export default function DetallePage({producto, volver, agregarAlCarrito}){
     const [showmodal, setShowmodal] = useState(false);
+    const navigate = useNavigate();
 
   const VITE_API_URL = import.meta.env.VITE_API_URL;
   
@@ -15,6 +18,26 @@ export default function DetallePage({producto, volver, agregarAlCarrito}){
     function handlerModal(){
         setShowmodal(!showmodal);
     }
+
+    const handleEliminar = async (productoId) => {
+      try {
+        const response = await fetch(`${VITE_API_URL}/api/productos/${productoId}`, {
+          method: 'DELETE'
+        });
+        
+        if (!response.ok) {
+          throw new Error('Error al eliminar el producto');
+        }
+        
+        alert('Producto eliminado exitosamente');
+        setShowmodal(false);
+        navigate('/productos');
+        
+      } catch (error) {
+        console.error('Error al eliminar producto:', error);
+        alert('Error al eliminar el producto: ' + error.message);
+      }
+    };
     return(
         <>
         <div className="Detalle">
@@ -59,7 +82,7 @@ export default function DetallePage({producto, volver, agregarAlCarrito}){
             <ModalEliminar
                 abierto={showmodal}
                 onClose={handlerModal}
-                onConfirm={console.log('Eliminando producto...')}
+                onConfirm={handleEliminar}
                 producto={producto}
             />
         )}

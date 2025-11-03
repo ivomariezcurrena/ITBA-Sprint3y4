@@ -194,7 +194,7 @@ const CrearProducto = () => {
     if (!confirmacion) return;
     
     try {
-      const response = await fetch(`/api/productos/${producto._id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/productos/${producto._id}`, {
         method: 'DELETE'
       });
       
